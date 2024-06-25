@@ -1,0 +1,70 @@
+.plotscore-lets-you__card {
+  align-items: center;
+  background-color: var(--color--primary-main);
+  border-radius: 4px;
+  color: var(--color--primary-light-70);
+  display: flex;
+  gap: 10px;
+  justify-content: space-around;
+  padding: 3rem 2rem;
+  transition: .05s;
+  width: 100%;
+  transition: .1s;
+}
+
+.plotscore-lets-you__column-1:hover {
+  background-color: var(--color--secondary-main);
+  color: var(--color--primary-dark-70);
+}
+
+.plotscore-lets-you__column-2:hover {
+  background-color: var(--color--tertiary-main);
+  color: var(--color--primary-dark-70);
+}
+
+.plotscore-lets-you__column-3:hover {
+  background-color: var(--color--accent-main);
+  color: var(--color--primary-dark-70);
+}
+
+.plotscore-lets-you__icon {
+  height: 5.5rem;
+  width: 5.5rem;
+}
+
+.plotscore-lets-you__icon * {
+  height: 100%;
+  width: 100%;
+}
+
+.plotscore-lets-you__card p {
+  --font: clamp(10px, 1.5rem, 15px) var(--font--graphik-regular);
+  flex: 2;
+  font: var(--font);
+  text-wrap: wrap;
+}
+
+@media (width <= 1248px) {
+  .plotscore-lets-you__card p {
+    font-size: clamp(10px, 1.4rem, 15px);
+  }
+
+  .plotscore-lets-you__column-1:hover,
+  .plotscore-lets-you__column-2:hover,
+  .plotscore-lets-you__column-3:hover {
+    background-color: var(--color--primary-main);
+    color: var(--color--primary-light-70);
+  }
+}
+
+@media (width <= 1192px) {
+  .plotscore-lets-you__card p {
+    font-size: clamp(10px, 1.3rem, 14px);
+  }
+}
+
+@media (width <= 980px) {
+  .plotscore-lets-you__card p {
+    font-size: 1.3rem;
+  }
+}

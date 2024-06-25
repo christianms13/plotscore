@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+  <head>
+    <meta charset = 'utf-8' />
+    <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0' />
+    <title>plotscore</title>
+    <link rel = 'icon' href = 'favicon.ico' />
+    <meta name = 'description' content = 'The plotscore project consists of a website based on reviews/ratings of all kinds of mainstream multimedia content, meaning content that can be consumed on major streaming platforms or in theaters or similar venues.' />
+
+    <link rel = 'stylesheet' href = 'https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css' />
+
+    <script src = 'scripts/pages/landing-page.js' defer></script>
+    <script src = 'scripts/translation--landing-page.js'></script>
+
+    <link rel = 'stylesheet' href = 'styles/components/main-actions-buttons.css' />
+    <link rel = 'stylesheet' href = 'styles/global.css' />
+    <link rel = 'stylesheet' href = 'styles/pages/landing-page.css' />
+  </head>
+  <body>
+    <main>
+      <section class = 'landing-page__elements'>
+        <img class = 'landing-page__backdrop' src = 'assets/img/landing-page/low-res--backdrop.webp' alt = 'fallout entrance' />
+
+        <section class = 'landing-page__content'>
+          <div class = 'landing-page-content__main-content'>
+            <h1>plotscore</h1>
+
+            <div class = 'access-buttons'>
+              <a class = 'access-buttons__button signup-button' href = 'pages/signup.html'></a>
+              <a class = 'access-buttons__button login-button' href = 'pages/login.html'></a>
+            </div>
+          </div>
+
+          <p class = 'copyright'></p>
+        </section>
+      </section>
+    </main>
+
+    <!-- ---------------------------------------------- -->
+
+    <div class = 'main-actions-buttons'>
+      <button class = 'main-action-button language-button' onclick = 'changeLanguage()'>
+        <img id = 'language-icon' src = 'assets/icons/english.svg' alt = 'language icon' />
+      </button>
+      <button class = 'main-action-button theme-button' onclick = 'changeTheme()'>
+        <i id = 'theme-icon' class = 'ti'></i>
+      </button>
+    </div>
+
+    <!-- ---------------------------------------------- -->
+
+    <script>
+      let theme = localStorage.getItem('theme') || 'dark'
+      document.body.classList.add(theme + '-theme')
+      updateThemeIcon()
+
+      function changeTheme() {
+        theme = theme === 'dark' ? 'light' : 'dark'
+        localStorage.setItem('theme', theme)
+        document.body.classList.toggle('dark-theme')
+        document.body.classList.toggle('light-theme')
+        updateThemeIcon()
+      }
+
+      function updateThemeIcon() {
+        const themeIcon = document.getElementById('theme-icon')
+        themeIcon.className = theme === 'dark' ? 'ti ti-bulb-filled' : 'ti ti-bulb-off'
+      }
+
+      /* ------------------------------ */
+
+      let lang = localStorage.getItem('lang') || 'en'
+      translatePage(lang)
+      updateLanguageIcon()
+
+      function changeLanguage() {
+        lang = lang === 'en' ? 'es' : 'en'
+        localStorage.setItem('lang', lang)
+        translatePage(lang)
+        updateLanguageIcon()
+      }
+
+      function updateLanguageIcon() {
+        const languageIcon = document.getElementById('language-icon')
+        languageIcon.src = lang === 'en' ? 'assets/icons/spanish.svg' : 'assets/icons/english.svg'
+      }
+    </script>
+  </body>
+</html>

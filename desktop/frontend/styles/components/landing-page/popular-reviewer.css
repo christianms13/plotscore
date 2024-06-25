@@ -1,0 +1,46 @@
+.dark-theme {
+  --color--popular-reviewer__username: var(--color--primary-light-90);
+  --color--popular-reviewer--details: var(--color--primary-light-30);
+}
+
+.light-theme {
+  --color--popular-reviewer__username: var(--color--primary-dark-50);
+  --color--popular-reviewer--details: var(--color--primary-dark-40);
+}
+
+.popular-reviewer {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.popular-reviewer__avatar {
+  background: center / cover;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 37px;
+  width: 37px;
+}
+
+.popular-reviewer__info {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: center;
+}
+
+.popular-reviewer__username {
+  --font: clamp(10px, 1.6rem, 20px) var(--font--graphik-semibold);
+  color: var(--color--popular-reviewer__username);
+  cursor: pointer;
+  font: var(--font);
+}
+
+.popular-reviewer__counts {
+  --font: clamp(8px, 1.2rem, 15px) var(--font--graphik-light);
+  color: var(--color--popular-reviewer--details);
+  font: var(--font);
+}

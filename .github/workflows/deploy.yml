@@ -1,0 +1,74 @@
+name: deploy plotscore project
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, plotscore--desktop]
+
+    steps:
+    - name: checkout repository
+      uses: actions/checkout@v4
+
+    - name: deploy next.js app
+      run: |
+        cd desktop/frontend
+        npm ci
+
+        cp .env.example .env
+        sed -i 's|NEXT_PUBLIC_API_URL=.*|NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}|' .env
+        sed -i 's|NEXT_PUBLIC_API_STORAGE_PATH=.*|NEXT_PUBLIC_API_STORAGE_PATH=${{ secrets.NEXT_PUBLIC_API_STORAGE_PATH }}|' .env
+
+        npm run build
+
+        cd ../..
+        pm2 start ecosystem.config.js --only nextjs-app
+        pm2 save --force
+
+    - name: set up php
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+
+    - name: deploy laravel app
+      run: |
+        cd desktop/backend
+        composer install --no-dev --optimize-autoloader
+
+        cp .env.example .env
+        sed -i 's|APP_ENV=.*|APP_ENV=production|' .env
+        sed -i 's|APP_DEBUG=.*|APP_DEBUG=false|' .env
+        sed -i 's|APP_URL=.*|APP_URL=${{ secrets.APP_URL }}|' .env
+        sed -i 's|DB_HOST=.*|DB_HOST=${{ secrets.DB_HOST }}|' .env
+        sed -i 's|DB_PORT=.*|DB_PORT=${{ secrets.DB_PORT }}|' .env
+        sed -i 's|DB_DATABASE=.*|DB_DATABASE=${{ secrets.DB_DATABASE }}|' .env
+        sed -i 's|DB_USERNAME=.*|DB_USERNAME=${{ secrets.DB_USERNAME }}|' .env
+        sed -i 's|DB_PASSWORD=.*|DB_PASSWORD=${{ secrets.DB_PASSWORD }}|' .env
+        sed -i 's|ADMIN_SECRET_KEY=.*|ADMIN_SECRET_KEY=${{ secrets.ADMIN_SECRET_KEY }}|' .env
+
+        APP_KEY=$(php artisan key:generate --show)
+        sed -i "s|^APP_KEY=.*|APP_KEY=${APP_KEY}|" .env
+
+        php artisan config:cache
+        php artisan route:cache
+        php artisan view:cache
+
+        # first time migrations
+        php artisan migrate:refresh --force --seed
+
+        # after first time migrations
+        # php artisan migrate --force
+
+        php artisan storage:link
+
+        cd ../..
+        pm2 start ecosystem.config.js --only laravel-app
+        pm2 save --force
+
+    - name: reinforcing pm2 deployments
+      run: |
+        pm2 start ecosystem.config.js --only nextjs-app
+        pm2 start ecosystem.config.js --only laravel-app
+        pm2 save --force

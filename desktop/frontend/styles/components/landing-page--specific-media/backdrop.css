@@ -1,0 +1,68 @@
+.dark-theme {
+  --color--backdrop-edges: var(--color--primary-dark-70);
+  --color--media-title: var(--color--primary-light-40);
+}
+
+.light-theme {
+  --color--backdrop-edges: var(--color--primary-light-80);
+  --color--media-title: var(--color--primary-dark-40);
+}
+
+.backdrop-wrapper {
+  background: center / cover;
+  box-shadow: 0 -100px 10px 20px var(--color--backdrop-edges) inset;
+  height: 70vh;
+  padding-inline: 2% 3.5%;
+  position: relative;
+  width: 100%;
+  transition: .2s;
+}
+
+.backdrop__media-title {
+  --font: 1.3rem var(--font--graphik-regular);
+  color: var(--color--media-title);
+  cursor: pointer;
+  font: var(--font);
+  height: fit-content;
+  position: absolute;
+  right: -5rem;
+  text-decoration: none;
+  top: 50%;
+  transform: rotate(-90deg);
+  width: fit-content;
+}
+
+@media (width <= 1420px) {
+  .backdrop__media-title {
+    left: 5rem;
+    margin-top: -120px;
+    top: 100%;
+    transform: rotate(0);
+    z-index: 2;
+  }
+}
+
+@media (width <= 1360px) {
+  .backdrop__media-title {
+    display: none;
+  }
+}
+
+@media (width <= 1024px) {
+  .backdrop-wrapper {
+    box-shadow: -1px -115px 10px 5px var(--color--backdrop-edges) inset;
+  }
+}
+
+@media (width <= 764px) {
+  .backdrop-wrapper {
+    height: 50vh;
+  }
+}
+
+@media (width <= 510px) {
+  .backdrop-wrapper {
+    background-image: none !important;
+    height: fit-content;
+  }
+}

@@ -1,0 +1,72 @@
+.dark-theme {
+  --color--date: var(--color--primary-light-90);
+  --color--episode-badge: var(--color--secondary-main);
+}
+
+.light-theme {
+  --color--date: var(--color--primary-dark-90);
+  --color--episode-badge: var(--color--tertiary-main);
+}
+
+.new-releases__slot,
+.dive-back-in__slot,
+.popular-in-plotscore__slot {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: fit-content;
+  justify-content: flex-start;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.new-releases__slot .poster,
+.dive-back-in__slot .poster,
+.popular-in-plotscore__slot .poster {
+  background: center / cover;
+  border-radius: 4px;
+  height: 195px;
+  position: relative;
+  width: 130px;
+}
+
+.new-releases__slot .episode,
+.dive-back-in__slot .episode,
+.popular-in-plotscore__slot .episode {
+  align-items: center;
+  background-color: var(--color--episode-badge);
+  border-radius: 4px;
+  bottom: 2%;
+  display: flex;
+  height: fit-content;
+  justify-content: center;
+  left: 3%;
+  padding-bottom: 4px !important;
+  padding: 5px;
+  position: absolute;
+  width: fit-content;
+}
+
+.new-releases__slot .episode p,
+.dive-back-in__slot .episode p,
+.popular-in-plotscore__slot .episode p {
+  --font: clamp(10px, 1.1rem, 12px) var(--font--graphik-semibold);
+  color: var(--color--primary-light-90);
+  font: var(--font);
+  text-transform: uppercase;
+}
+
+.new-releases__slot .date {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.new-releases__slot .date p {
+  --font: clamp(10px, 1.1rem, 12px) var(--font--graphik-regular);
+  color: var(--color--date);
+  font: var(--font);
+  text-transform: capitalize;
+}
